@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { Photo } from './components/Photo';
+import { useEffect, useState } from 'react';
+
+import { PhotoCard } from './components/PhotoCard';
 
 const clientID = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`
 const mainUrl = 'https://api.unsplash.com/photos'
@@ -54,7 +55,7 @@ function App() {
   if(!newPhotos)return
   if(loading)return
   setPage((prevPage)=>prevPage +1)
-  }, [newPhotos])
+  }, [newPhotos,loading])
   
   const event = () =>{
     if(window.innerHeight + window.scrollY  >= document.body.scrollHeight -2){
@@ -79,22 +80,25 @@ function App() {
 
   return (
     <>
-      <main>
-        <section>
-          <form>
-            <input type='text' placeholder='search' value={query} onChange={(e) => setQuery(e.target.value)} />
-            <button type='submit' onClick={handleSubmit}>search</button>
+      <main className='container mx-auto'>
+        <section className='max-w-sm rounded overflow-hidden my-10 mx-auto'>
+          <form className="w-full max-w-sm">
+            <div className="flex items-center border-b-2 border-purple-500 py-2">
+            <input type='text' placeholder='Search Image...' value={query} onChange={(e) => setQuery(e.target.value)} className='appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none' />
+            <button type='submit' onClick={handleSubmit} className='flex-shrink-0 bg-purple-500 hover:bg-purple-700 border-purple-500 hover:border-purple-700 text-sm border-4 text-white py-1 px-2 rounded'>Search</button>
+          </div>
           </form>
         </section>
-        <section>
-          <div>
+        {loading && <h2 className='text-2xl text-center mx-auto mt-auto'>Loading...</h2>}
+
+          <div className='grid grid-col-1 md:grid-cols-3 gap-4'>
 
             {photos.map((photo,index) => {
-              return <Photo key={index} {...photo} />
+              return <PhotoCard key={index} {...photo} />
             })}
           </div>
-          {loading && <h3>Loading...</h3>}
-        </section>
+        
+        
       </main>
 
     </>
