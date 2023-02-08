@@ -51,7 +51,6 @@ function App() {
   }, [page]);
 
   useEffect(() => {
-
   if(!newPhotos)return
   if(loading)return
   setPage((prevPage)=>prevPage +1)
@@ -66,7 +65,6 @@ function App() {
     window.addEventListener('scroll',event)
     return () =>window.removeEventListener('scroll', event)
   }, [])
-  
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -81,26 +79,23 @@ function App() {
   return (
     <>
       <main className='container mx-auto'>
+        {/*------ Search Form------ */}
         <section className='max-w-sm rounded overflow-hidden my-10 mx-auto'>
           <form className="w-full max-w-sm">
-            <div className="flex items-center border-b-2 border-purple-500 py-2">
+            <div className="flex items-center border-b-2 border-gray-500 py-2">
             <input type='text' placeholder='Search Image...' value={query} onChange={(e) => setQuery(e.target.value)} className='appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none' />
-            <button type='submit' onClick={handleSubmit} className='flex-shrink-0 bg-purple-500 hover:bg-purple-700 border-purple-500 hover:border-purple-700 text-sm border-4 text-white py-1 px-2 rounded'>Search</button>
+            <button type='submit' onClick={handleSubmit} className='flex-shrink-0 bg-gray-500 hover:bg-gray-700 border-gray-500 hover:border-gray-700 text-sm border-4 text-white py-1 px-2 rounded'>Search</button>
           </div>
           </form>
         </section>
+       {/*------ Image Grid------ */}
         {loading && <h2 className='text-2xl text-center mx-auto mt-auto'>Loading...</h2>}
-
-          <div className='grid grid-col-1 md:grid-cols-3 gap-4'>
-
+          <div className='grid grid-col-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
             {photos.map((photo,index) => {
               return <PhotoCard key={index} {...photo} />
             })}
           </div>
-        
-        
       </main>
-
     </>
   );
 }
