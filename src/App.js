@@ -91,7 +91,7 @@ function App() {
         {/*------ Image Grid------ */}
         {loading && <Loader/>}
         <div className='grid grid-col-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
-          {photos.map((photo, index) => {
+          {photos.map((photo,index) => {
             return <PhotoCard key={index} {...photo} />
           })}
         </div>
